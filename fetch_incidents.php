@@ -38,7 +38,7 @@ function zabbix_api($url, $method, $params, $auth = null) {
 }
 
 try {
-    // 1️⃣ LOGIN
+    // Login
     $login = zabbix_api($zabbix_url, 'user.login', [
         'username' => $zabbix_user,
         'password' => $zabbix_pass
@@ -50,7 +50,7 @@ try {
 
     $auth = $login['result'];
 
-    // 2️⃣ PEGAR PROBLEMAS ATIVOS
+    //  Pegar problemas ativos 
     $problems = zabbix_api($zabbix_url, 'problem.get', [
         'output' => ['eventid', 'name', 'severity', 'clock', 'objectid'],
         'selectAcknowledges' => 'extend',
@@ -64,14 +64,14 @@ try {
         throw new Exception("Erro ao buscar problemas: " . json_encode($problems));
     }
 
-    // 3️⃣ Para cada problema, buscar o host
+   
     $data = [];
     foreach ($problems['result'] as $p) {
         // Buscar informações do trigger/host
         $trigger = zabbix_api($zabbix_url, 'trigger.get', [
             'output' => ['description'],
             'triggerids' => $p['objectid'],
-            'selectHosts' => ['host', 'name']  // ✅ selectHosts funciona em trigger.get
+            'selectHosts' => ['host', 'name']  
         ], $auth);
 
         $hostname = '-';
@@ -88,7 +88,7 @@ try {
         ];
     }
 
-    // 4️⃣ LOGOUT
+    // Logout
     zabbix_api($zabbix_url, 'user.logout', [], $auth);
 
     echo json_encode(['success' => true, 'data' => $data], JSON_PRETTY_PRINT);
