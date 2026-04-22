@@ -5,10 +5,10 @@
   <title>Painel de Incidentes Zabbix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- ✅ Tailwind CSS -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- ✅ Script externo -->
+  <!-- Script externo -->
   <script src="assets/script.js" defer></script>
 </head>
 
