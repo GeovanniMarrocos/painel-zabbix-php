@@ -40,7 +40,7 @@ async function carregarIncidentes() {
     const contadores = { 'Desastre': 0, 'Alta': 0, 'Média': 0 };
 
     incidentes.forEach(inc => {
-      // 🔹 converte severidade numérica para texto
+      //  converte severidade numérica para texto
       let severidadeNome = 'Baixa';
       switch (parseInt(inc.severity)) {
         case 5: severidadeNome = 'Desastre'; break;
@@ -52,7 +52,7 @@ async function carregarIncidentes() {
 
       if (contadores[severidadeNome] !== undefined) contadores[severidadeNome]++;
 
-      // 🔹 define cores do badge
+      //  define cores do badge
       let badgeColor = 'bg-gray-200 text-gray-900';
       if (severidadeNome === 'Desastre') badgeColor = 'bg-red-100 text-red-600';
       else if (severidadeNome === 'Alta') badgeColor = 'bg-orange-100 text-orange-600';
@@ -77,10 +77,10 @@ async function carregarIncidentes() {
         const texto = `Para conhecimento,\n\nHost: ${inc.host}\nEvento: ${inc.name}\n\nSeveridade: ${severidadeNome}\n\nData e hora de início:\t${inc.time}`;
         navigator.clipboard.writeText(texto);
         const btn = tr.querySelector('.copy-btn');
-        btn.innerText = '✅ Copiado!';
+        btn.innerText = 'Copiado!';
         btn.classList.replace('bg-iosBlue', 'bg-green-500');
         setTimeout(() => {
-          btn.innerText = '📋 Copiar';
+          btn.innerText = 'Copiar';
           btn.classList.replace('bg-green-500', 'bg-iosBlue');
         }, 1800);
       });
@@ -88,7 +88,7 @@ async function carregarIncidentes() {
       tbody.appendChild(tr);
     });
 
-    // 🔹 Atualiza os contadores dos cards
+    //  Atualiza os contadores dos cards
     document.getElementById('cardDesastre').innerText = contadores['Desastre'];
     document.getElementById('cardAlta').innerText = contadores['Alta'];
     document.getElementById('cardMedia').innerText = contadores['Média'];
@@ -102,7 +102,7 @@ async function carregarIncidentes() {
   }
 }
 
-// 🔄 Executa ao carregar a página
+// Executa ao carregar a página
 document.addEventListener('DOMContentLoaded', () => {
   carregarIncidentes();
   setInterval(carregarIncidentes, 60000); // atualiza a cada 1 min
